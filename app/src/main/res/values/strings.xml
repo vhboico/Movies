@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="help">Preicsa de ajuda?</string>
+    <string name="novo">Novo por aqui? Cadastre-se aqui</string>
+    <string name="lets">Vamos assistir?</string>
+    <string name="siga">Para assistir suas séries e filmes favoritos</string>
+    <string name="txt">faça o cadastro</string>
+    <string name="cadastrar">Cadastrar</string>
+</resources>
