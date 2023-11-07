@@ -22,6 +22,7 @@ import androidx.navigation.NavController
 import com.example.movies.ui.theme.black
 import com.example.movies.ui.theme.gray_light
 import com.example.movies.ui.theme.red
+import com.example.movies.ui.theme.white
 import com.google.firebase.auth.FirebaseAuth
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -45,11 +46,35 @@ fun MoviesScreen(navController: NavController) {
                 actions = {
 
                     Text(
+                        text = "Series",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = white,
+                        modifier = Modifier.padding(start = 10.dp, end = 10.dp)
+                    )
+
+                    Text(
+                        text = "Movies",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = white,
+                        modifier = Modifier.padding(end = 10.dp)
+                    )
+
+                    Text(
+                        text = "My list",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = white,
+                        modifier = Modifier.padding(end = 10.dp)
+                    )
+
+                    Text(
                         text = "John",
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
-                        color = red,
-                        modifier = Modifier.padding(end = 20.dp)
+                        color = white,
+                        modifier = Modifier
                     )
 
                     TextButton(onClick = {
@@ -65,19 +90,17 @@ fun MoviesScreen(navController: NavController) {
                             .show()
                     }
                     ) {
-
                         Text(
                             text = "Out",
                             fontSize = 18.sp,
                             fontWeight = FontWeight.Bold,
-                            color = red
+                            color = white
                         )
                     }
                 }
             )
         }
     ) {
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
