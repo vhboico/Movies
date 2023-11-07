@@ -12,4 +12,8 @@ class ViewModel @Inject constructor(private val repository: Repository): ViewMod
     fun signUp(name: String, email: String, password: String, listener: Listener){
         repository.signUp(name, email, password, listener)
     }
+
+    fun login(email: String, password: String, listener: Listener){
+        repository.login(email, password, listener)
+    }
 }

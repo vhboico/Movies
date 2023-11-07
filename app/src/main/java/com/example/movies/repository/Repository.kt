@@ -11,4 +11,8 @@ class Repository @Inject constructor(private val dataSource: DataSource) {
     fun signUp(name: String, email: String, password: String, listener: Listener){
         dataSource.signUp(name, email, password, listener)
     }
+
+    fun login(email: String, password: String, listener: Listener){
+        dataSource.login(email, password, listener)
+    }
 }

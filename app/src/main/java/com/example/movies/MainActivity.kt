@@ -28,13 +28,13 @@ class MainActivity : ComponentActivity() {
                     SplashScreen(navController)
                 }
                 composable("loginScreen"){
-                    LoginScreen(navController)
+                    LoginScreen(navController, viewModel)
                 }
                 composable("signUp"){
                     SignUp(navController, viewModel)
                 }
                 composable("moviesScreen"){
-                    MoviesScreen()
+                    MoviesScreen(navController)
                 }
             }
         }

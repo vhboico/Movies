@@ -1,6 +1,7 @@
 package com.example.movies.view
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,23 +23,28 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.movies.R
+import com.example.movies.listener.Listener
 import com.example.movies.ui.theme.black
 import com.example.movies.ui.theme.gray_light
 import com.example.movies.ui.theme.red
 import com.example.movies.ui.theme.white
+import com.example.movies.viewmodel.ViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: ViewModel = hiltViewModel()
 ) {
 
     var email by remember {
@@ -48,6 +54,8 @@ fun LoginScreen(
     var password by remember {
         mutableStateOf("")
     }
+
+    val context = LocalContext.current
 
     Scaffold(
         modifier = Modifier.background(black),
@@ -122,7 +130,19 @@ fun LoginScreen(
                 )
 
                 Button(
-                    onClick = { navController.navigate("moviesScreen")},
+                    onClick = {
+                        viewModel.login(email, password, object : Listener {
+                            override fun onSuccess(message: String, screen: String) {
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                navController.navigate(screen)
+                            }
+
+                            override fun onFailure(error: String) {
+                                Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                            }
+
+                        })
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 20.dp, end = 20.dp)
