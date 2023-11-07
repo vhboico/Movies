@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -23,9 +25,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -58,7 +63,17 @@ fun SignUp(
         mutableStateOf("")
     }
 
+    var visibility by remember {
+        mutableStateOf(false)
+    }
+
     val context = LocalContext.current
+
+    val icon = if (visibility) {
+        painterResource(id = R.drawable.baseline_visibility_24)
+    } else {
+        painterResource(id = R.drawable.baseline_visibility_off_24)
+    }
 
     Scaffold(
         modifier = Modifier.background(black),
@@ -119,7 +134,7 @@ fun SignUp(
                         },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         backgroundColor = gray_light,
-                        textColor = black,
+                        textColor = white,
                         cursorColor = white,
                         focusedBorderColor = white,
                         unfocusedBorderColor = white,
@@ -144,7 +159,7 @@ fun SignUp(
                         },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         backgroundColor = gray_light,
-                        textColor = black,
+                        textColor = white,
                         cursorColor = white,
                         focusedBorderColor = white,
                         unfocusedBorderColor = white,
@@ -169,7 +184,7 @@ fun SignUp(
                         },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         backgroundColor = gray_light,
-                        textColor = black,
+                        textColor = white,
                         cursorColor = white,
                         focusedBorderColor = white,
                         unfocusedBorderColor = white,
@@ -180,7 +195,14 @@ fun SignUp(
                     },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number
-                    )
+                    ),
+                    trailingIcon = {
+                        IconButton(onClick = { visibility = !visibility }) {
+                            Icon(painter = icon, contentDescription = "", tint = white)
+                        }
+                    },
+                    visualTransformation = if (visibility) VisualTransformation.None
+                    else PasswordVisualTransformation()
                 )
 
                 Button(

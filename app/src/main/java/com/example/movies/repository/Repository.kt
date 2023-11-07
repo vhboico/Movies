@@ -3,6 +3,7 @@ package com.example.movies.repository
 import com.example.movies.datasource.DataSource
 import com.example.movies.listener.Listener
 import dagger.hilt.android.scopes.ViewModelScoped
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @ViewModelScoped
@@ -14,5 +15,9 @@ class Repository @Inject constructor(private val dataSource: DataSource) {
 
     fun login(email: String, password: String, listener: Listener){
         dataSource.login(email, password, listener)
+    }
+
+    fun checkUser(): Flow<Boolean>{
+        return dataSource.checkUser()
     }
 }
