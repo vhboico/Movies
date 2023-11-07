@@ -18,20 +18,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.movies.ui.theme.black
 import com.example.movies.ui.theme.gray_light
 import com.example.movies.ui.theme.red
-import com.example.movies.viewmodel.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MoviesScreen(
-    navController: NavController,
-    viewModel: ViewModel = hiltViewModel()
-) {
+fun MoviesScreen(navController: NavController) {
 
     val context = LocalContext.current
 

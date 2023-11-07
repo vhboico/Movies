@@ -62,7 +62,6 @@ fun LoginScreen(
         } else {
             checkUser = false
         }
-
     }
 
     var email by remember {
