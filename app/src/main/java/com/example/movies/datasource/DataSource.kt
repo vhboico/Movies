@@ -22,7 +22,7 @@ class DataSource @Inject constructor() {
 
     fun signUp(name: String, email: String, password: String, listener: Listener) {
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            listener.onFailure("Preencha todos os campos")
+            listener.onFailure("Complete all fields")
         } else {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { signUp ->
                 if (signUp.isSuccessful) {
@@ -35,43 +35,42 @@ class DataSource @Inject constructor() {
                     )
 
                     db.collection("users").document(userID).set(map).addOnCompleteListener {
-                        listener.onSuccess("Cadastro realizado com sucesso", "loginScreen")
+                        listener.onSuccess("Successful registration", "loginScreen")
                     }.addOnFailureListener {
-                        listener.onFailure("Erro inesperado!")
+                        listener.onFailure("Unexpected error")
                     }
                 }
             }.addOnFailureListener { exception ->
-                val erro = when (exception) {
-                    is FirebaseAuthUserCollisionException -> "Essa conta já foi registrada"
-                    is FirebaseAuthWeakPasswordException -> "A senha precisa conter pelo menos 6 caracteres"
-                    is FirebaseNetworkException -> "Sem conexão com a internet"
-                    else -> "Email inválido"
+                val error = when (exception) {
+                    is FirebaseAuthUserCollisionException -> "This account has already been registered"
+                    is FirebaseAuthWeakPasswordException -> "The password must contain at least 6 characters"
+                    is FirebaseNetworkException -> "No internet connection"
+                    else -> "Invalid email"
                 }
-                listener.onFailure(erro)
+                listener.onFailure(error)
             }
         }
     }
     fun login(email: String, password: String, listener: Listener) {
         if (email.isEmpty() || password.isEmpty()) {
-            listener.onFailure("Preencha todos os campos")
+            listener.onFailure("Complete all fields")
         } else {
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    listener.onSuccess("Login realizado com sucesso", "moviesScreen")
+                    listener.onSuccess("Login completed", "moviesScreen")
                 }
             }.addOnFailureListener { exception ->
-                val erro = when (exception) {
-                    is FirebaseAuthInvalidCredentialsException -> "Senha incorreta"
-                    is FirebaseNetworkException -> "Sem conexão de internet"
-                    else -> "Email inválido"
+                val error = when (exception) {
+                    is FirebaseAuthInvalidCredentialsException -> "Incorrect password"
+                    is FirebaseNetworkException -> "No internet connection"
+                    else -> "Invalid email"
                 }
-                listener.onFailure(erro)
+                listener.onFailure(error)
             }
         }
     }
 
     fun checkUser(): Flow<Boolean>{
-
         val userChecked = FirebaseAuth.getInstance().currentUser
 
         _checkUserLogged.value = userChecked != null

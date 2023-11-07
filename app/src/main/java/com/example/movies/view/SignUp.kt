@@ -31,11 +31,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.movies.R
 import com.example.movies.listener.Listener
 import com.example.movies.ui.theme.black
@@ -106,7 +108,7 @@ fun SignUp(
                         .padding(start = 20.dp, end = 20.dp)
                         .constrainAs(txtSign) {
                             top.linkTo(txtLets.bottom, 10.dp)
-                            start.linkTo(parent.start, 10.dp)
+                            start.linkTo(parent.start, 30.dp)
 
                         })
 
@@ -119,7 +121,7 @@ fun SignUp(
                         .padding(start = 20.dp, end = 20.dp)
                         .constrainAs(txt) {
                             top.linkTo(txtSign.bottom)
-                            start.linkTo(parent.start, 120.dp)
+                            start.linkTo(parent.start, 140.dp)
 
                         })
 
@@ -231,7 +233,8 @@ fun SignUp(
                     )
                 ) {
                     Text(
-                        text = stringResource(id = R.string.cadastrar),
+                        text = stringResource(id =
+                        R.string.cadastrar),
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = white
@@ -240,4 +243,10 @@ fun SignUp(
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun SignUpPreview(){
+    SignUp(rememberNavController())
 }
