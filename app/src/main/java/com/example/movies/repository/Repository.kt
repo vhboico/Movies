@@ -18,4 +18,8 @@ class Repository @Inject constructor(private val dataSource: DataSource) {
     fun checkUser(): Flow<Boolean>{
         return dataSource.checkUser()
     }
+
+    fun userProfile(): Flow<String>{
+        return dataSource.userProfile()
+    }
 }

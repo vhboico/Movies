@@ -20,6 +20,9 @@ class DataSource @Inject constructor() {
     private val _checkUserLogged = MutableStateFlow(false)
     private val checkUserLogged: StateFlow<Boolean> = _checkUserLogged
 
+    private val _name = MutableStateFlow("")
+    private val name: StateFlow<String> = _name
+
     fun signUp(name: String, email: String, password: String, listener: Listener) {
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
             listener.onFailure("Complete all fields")
@@ -69,11 +72,24 @@ class DataSource @Inject constructor() {
             }
         }
     }
-
     fun checkUser(): Flow<Boolean>{
         val userChecked = FirebaseAuth.getInstance().currentUser
 
         _checkUserLogged.value = userChecked != null
         return checkUserLogged
+    }
+
+    fun userProfile(): StateFlow<String>{
+
+        val userID = FirebaseAuth.getInstance().currentUser?.uid.toString()
+
+        db.collection("users").document(userID).get().addOnCompleteListener {
+            if (it.isSuccessful){
+
+                val name = it.result.getString("name").toString()
+                _name.value = name
+            }
+        }
+        return name
     }
 }

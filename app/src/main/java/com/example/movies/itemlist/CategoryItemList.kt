@@ -13,17 +13,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movies.model.Categoria
-import com.example.movies.model.Filmes
 import com.example.movies.ui.theme.white
 
 @Composable
 fun CategoryItemList(
     position: Int,
-    titulo: MutableList<Categoria>,
-    capa: MutableList<Filmes>
+    listaCategoria: MutableList<Categoria>
 ) {
 
-    val title = titulo[position].titulo
+    val title = listaCategoria[position].titulo
+    val capa = listaCategoria[position].filmes
 
     Column(
         modifier = Modifier.fillMaxSize()
