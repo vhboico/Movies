@@ -12,18 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movies.model.Category
-import com.example.movies.model.Movies
+import com.example.movies.model.Categoria
+import com.example.movies.model.Filmes
 import com.example.movies.ui.theme.white
 
 @Composable
 fun CategoryItemList(
     position: Int,
-    item: MutableList<Category>,
-    movies: MutableList<Movies>
+    titulo: MutableList<Categoria>,
+    capa: MutableList<Filmes>
 ) {
 
-    val title = item[position].title
+    val title = titulo[position].titulo
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -40,8 +40,8 @@ fun CategoryItemList(
         )
 
         LazyRow{
-            itemsIndexed(movies){position,_ ->
-                ImageItemList(position = position, pic = movies, text = "")
+            itemsIndexed(capa){ position, _ ->
+                ImageItemList(position = position, pic = capa)
             }
         }
     }

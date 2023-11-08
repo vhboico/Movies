@@ -5,7 +5,6 @@ import android.app.AlertDialog
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Scaffold
@@ -16,22 +15,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.movies.R
+import com.example.movies.api.Api
 import com.example.movies.itemlist.CategoryItemList
-import com.example.movies.model.Category
-import com.example.movies.model.Movies
+import com.example.movies.model.Categoria
+import com.example.movies.model.Categorias
+import com.example.movies.model.Filmes
 import com.example.movies.ui.theme.black
 import com.example.movies.ui.theme.dark_gray
 import com.example.movies.ui.theme.red
 import com.example.movies.ui.theme.white
 import com.google.firebase.auth.FirebaseAuth
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MoviesScreen(navController: NavController) {
+fun MoviesScreen(
+    navController: NavController,
+    listaCategorias: Categorias,
+    categoria: MutableList<Categorias>,
+    titulo: MutableList<Categoria>,
+    capa: MutableList<Filmes>
+) {
 
     val context = LocalContext.current
 
@@ -48,30 +59,6 @@ fun MoviesScreen(navController: NavController) {
                 },
                 backgroundColor = black,
                 actions = {
-
-                    Text(
-                        text = "Series",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = white,
-                        modifier = Modifier.padding(start = 10.dp, end = 10.dp)
-                    )
-
-                    Text(
-                        text = "Movies",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = white,
-                        modifier = Modifier.padding(end = 10.dp)
-                    )
-
-                    Text(
-                        text = "My list",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = white,
-                        modifier = Modifier.padding(end = 10.dp)
-                    )
 
                     Text(
                         text = "John",
@@ -111,28 +98,33 @@ fun MoviesScreen(navController: NavController) {
                 .background(dark_gray)
         ) {
 
-            val item: MutableList<Category> = mutableListOf(
-                Category("Filme 1"),
-                Category("Filme 2"),
-                Category("Filme 3"),
-                Category("Filme 4"),
-                Category("Filme 5"),
-                Category("Filme 6"),
-            )
+            val retrofit = Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://stackmobile.com.br/")
+                .build()
+                .create(Api::class.java)
 
-            val movies: MutableList<Movies> = mutableListOf(
-                Movies(R.drawable.ic_launcher_background),
-                Movies(R.drawable.ic_launcher_background),
-                Movies(R.drawable.ic_launcher_background),
-                Movies(R.drawable.ic_launcher_background),
-                Movies(R.drawable.ic_launcher_background),
-                Movies(R.drawable.ic_launcher_background),
-                Movies(R.drawable.ic_launcher_background),
-            )
+            retrofit.listaCategoria().enqueue(object : Callback<Categorias> {
+                override fun onResponse(call: Call<Categorias>, response: Response<Categorias>) {
+                    if (response.code() == 200) {
+                        response.body().let {
+                            val x = listaCategorias.categorias.addAll(it!!.categorias)
+                        }
+                    }
+                }
 
+                override fun onFailure(call: Call<Categorias>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            }
+        )
             LazyColumn {
-                itemsIndexed(item) { position, _ ->
-                    CategoryItemList(position = position, item = item, movies = movies)
+                itemsIndexed(categoria) { position, _ ->
+                    CategoryItemList(
+                        position = position,
+                        titulo = titulo,
+                        capa = capa
+                    )
                 }
             }
         }

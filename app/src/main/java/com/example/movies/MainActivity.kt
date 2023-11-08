@@ -7,6 +7,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.movies.model.Categoria
+import com.example.movies.model.Categorias
+import com.example.movies.model.Filmes
 import com.example.movies.view.LoginScreen
 import com.example.movies.view.MoviesScreen
 import com.example.movies.view.SignUp
@@ -22,19 +25,29 @@ class MainActivity : ComponentActivity() {
 
             val navController = rememberNavController()
             val viewModel: ViewModel = hiltViewModel()
+            val listaCategorias = Categorias()
+            val categoria: MutableList<Categorias> = mutableListOf()
+            val item: MutableList<Categoria> = mutableListOf()
+            val movies: MutableList<Filmes> = mutableListOf()
 
-            NavHost(navController = navController, startDestination = "splashScreen"){
-                composable("splashScreen"){
+            NavHost(navController = navController, startDestination = "splashScreen") {
+                composable("splashScreen") {
                     SplashScreen(navController)
                 }
-                composable("loginScreen"){
+                composable("loginScreen") {
                     LoginScreen(navController, viewModel)
                 }
-                composable("signUp"){
+                composable("signUp") {
                     SignUp(navController, viewModel)
                 }
-                composable("moviesScreen"){
-                    MoviesScreen(navController)
+                composable("moviesScreen") {
+                    MoviesScreen(
+                        navController = navController,
+                        listaCategorias = listaCategorias,
+                        categoria = categoria,
+                        titulo =item,
+                        capa = movies
+                    )
                 }
             }
         }
