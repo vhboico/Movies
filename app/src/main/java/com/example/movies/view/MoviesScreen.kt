@@ -2,6 +2,7 @@ package com.example.movies.view
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -32,7 +33,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -107,17 +107,17 @@ fun MoviesScreen(
             retrofit.listaCategoria().enqueue(object : Callback<Categorias> {
                 override fun onResponse(call: Call<Categorias>, response: Response<Categorias>) {
                     if (response.code() == 200) {
-                        response.body().let {
-                            val x = listaCategorias.categorias.addAll(it!!.categorias)
+                        response.body().let {filmes ->
+                            val x = listaCategorias.categorias.addAll(filmes!!.categorias)
                         }
                     }
                 }
-
                 override fun onFailure(call: Call<Categorias>, t: Throwable) {
-                    TODO("Not yet implemented")
+                        Toast.makeText(context, "Erro inesperado", Toast.LENGTH_SHORT).show()
                 }
             }
         )
+
             LazyColumn {
                 itemsIndexed(categoria) { position, _ ->
                     CategoryItemList(
