@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.movies.view.DescriptionScreen
 import com.example.movies.view.LoginScreen
 import com.example.movies.view.MoviesScreen
 import com.example.movies.view.SignUp
@@ -40,6 +41,9 @@ class MainActivity : ComponentActivity() {
                         navController,
                         viewModelApi
                     )
+                }
+                composable("descriptionScreen"){
+                    DescriptionScreen()
                 }
             }
         }

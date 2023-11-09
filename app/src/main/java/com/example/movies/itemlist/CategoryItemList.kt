@@ -12,13 +12,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.movies.model.Categoria
 import com.example.movies.ui.theme.white
 
 @Composable
 fun CategoryItemList(
     position: Int,
-    listaCategoria: MutableList<Categoria>
+    listaCategoria: MutableList<Categoria>,
+    navController: NavController
 ) {
 
     val title = listaCategoria[position].titulo
@@ -40,7 +42,7 @@ fun CategoryItemList(
 
         LazyRow{
             itemsIndexed(capa){ position, _ ->
-                ImageItemList(position = position, pic = capa)
+                ImageItemList(position = position, pic = capa, navController)
             }
         }
     }

@@ -103,6 +103,7 @@ fun MoviesScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(dark_gray)
+
         ) {
 
             var listaDeCategorias by remember {
@@ -124,7 +125,7 @@ fun MoviesScreen(
 
             LazyColumn {
                 itemsIndexed(listaDeCategorias) { position, _ ->
-                    CategoryItemList(position = position, listaCategoria = listaDeCategorias)
+                    CategoryItemList(position = position, listaCategoria = listaDeCategorias, navController)
                 }
             }
         }

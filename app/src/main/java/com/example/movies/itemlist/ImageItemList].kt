@@ -2,6 +2,7 @@ package com.example.movies.itemlist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.movies.model.Filmes
 import com.example.movies.ui.theme.Shapes
@@ -22,7 +24,8 @@ import com.example.movies.ui.theme.dark_gray
 @Composable
 fun ImageItemList(
     position: Int,
-    pic: MutableList<Filmes>
+    pic: MutableList<Filmes>,
+    navController: NavController
 ) {
 
     val picture = pic[position].capa
@@ -34,7 +37,10 @@ fun ImageItemList(
                 color = MaterialTheme.colors.surface.copy(alpha = 0.12f),
                 shape = Shapes.small
             )
-            .width(120.dp),
+            .width(120.dp)
+            .clickable {
+                navController.navigate("descriptionScreen")
+            },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
@@ -46,7 +52,6 @@ fun ImageItemList(
                 .height(160.dp)
                 .padding(start = 10.dp, end = 10.dp),
             contentScale = ContentScale.Crop
-
             )
 
         Box(
