@@ -5,4 +5,7 @@
     <string name="siga">To watch your favorite series and films</string>
     <string name="txt">register now</string>
     <string name="cadastrar">Register</string>
+    <string name="list">Minha lista</string>
+    <string name="watch">Assistir</string>
+    <string name="more">Saiba mais</string>
 </resources>

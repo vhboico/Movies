@@ -11,8 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 class DataSourceApi @Inject constructor() {
-
-    fun getFilmes(listener: ListenerListaFilmes){
+    fun getFilmes(listener: ListenerListaFilmes) {
 
         val retrofit: Api = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -20,9 +19,9 @@ class DataSourceApi @Inject constructor() {
             .build()
             .create(Api::class.java)
 
-        retrofit.listaCategoria().enqueue(object : Callback<Categorias>{
+        retrofit.listaCategoria().enqueue(object : Callback<Categorias> {
             override fun onResponse(call: Call<Categorias>, response: Response<Categorias>) {
-                if (response.isSuccessful){
+                if (response.isSuccessful) {
                     listener.onResponse(response.body()!!.categorias)
                 }
             }
@@ -31,6 +30,8 @@ class DataSourceApi @Inject constructor() {
                 listener.onFailure("Server error!")
             }
 
-        })
+        }
+        )
     }
 }
+

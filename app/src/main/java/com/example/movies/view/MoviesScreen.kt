@@ -45,8 +45,8 @@ import kotlinx.coroutines.launch
 fun MoviesScreen(
     navController: NavController,
     viewModelApi: ViewModelApi = hiltViewModel(),
-    viewModel: ViewModel = hiltViewModel()
-) {
+    viewModel: ViewModel = hiltViewModel(),
+    ) {
 
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
@@ -123,9 +123,9 @@ fun MoviesScreen(
                 })
             }
 
-            LazyColumn {
+            LazyColumn{
                 itemsIndexed(listaDeCategorias) { position, _ ->
-                    CategoryItemList(position = position, listaCategoria = listaDeCategorias, navController)
+                    CategoryItemList(position = position, listaCategoria = listaDeCategorias, navController = navController)
                 }
             }
         }
